@@ -149,7 +149,7 @@ VOLUME /workspace
 
 #USER theia
 #ARG version=latest
-WORKDIR /workspace
+WORKDIR /home/theia
 ADD package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache
