@@ -145,9 +145,11 @@ RUN curl -s -o composer-setup.php https://getcomposer.org/installer \
 ##Needed for node-gyp, nsfw build
 RUN apt-get update && apt-get install -y python build-essential
 
+VOLUME /workspace
+
 #USER theia
 #ARG version=latest
-WORKDIR /home/theia
+WORKDIR /workspace
 ADD package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache
