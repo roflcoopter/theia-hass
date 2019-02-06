@@ -113,9 +113,11 @@ RUN echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main" > /etc/apt
 RUN apt-get update && apt-get install -y clang-tools-9
 RUN ln -s /usr/bin/clangd-9 /usr/bin/clangd
 
-#Python 2
+#Python
 RUN apt-get update && apt-get install -y python python-pip && \
-pip install python-language-server;
+pip install python-language-server \
+            flake8 \
+            autopep8
 
 #PHP
 RUN apt-get -y install php curl php-cli php-mbstring unzip
