@@ -1,7 +1,20 @@
 FROM ubuntu:16.04
 
 #Common deps
-RUN apt-get update && apt-get -y install curl xz-utils wget git sudo python python-pip build-essential
+RUN apt-get update && apt-get -y install curl \
+xz-utils \
+wget \
+git \
+sudo \
+php \
+curl \
+php-cli \
+php-mbstring \
+unzip \
+python \
+build-essential
+python-pip && \
+pip install python-language-server[all] 
 
 #Install node and yarn
 #From: https://github.com/nodejs/docker-node/blob/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
@@ -24,6 +37,7 @@ RUN set -ex \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
   
+
 ENV NODE_VERSION 8.12.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
@@ -64,12 +78,36 @@ RUN set -ex \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
-#Python
-RUN pip install python-language-server[all] \
-            flake8 \
-            autopep8 \
-            yapf \
-            pydocstyle
+
+ENV GO_VERSION 1.9.4
+ENV GOPATH=/usr/local/go-packages
+ENV GO_ROOT=/usr/local/go
+ENV PATH $PATH:/usr/local/go/bin
+ENV PATH $PATH:${GOPATH}/bin
+
+RUN curl -sS https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - && \
+ go get -u -v github.com/ramya-rao-a/go-outline && \
+ go get -u -v github.com/acroca/go-symbols && \
+ go get -u -v github.com/nsf/gocode && \
+ go get -u -v github.com/rogpeppe/godef && \
+ go get -u -v golang.org/x/tools/cmd/godoc && \
+ go get -u -v github.com/zmb3/gogetdoc && \
+ go get -u -v golang.org/x/lint/golint && \
+ go get -u -v github.com/fatih/gomodifytags && \
+ go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs && \
+ go get -u -v golang.org/x/tools/cmd/gorename && \
+ go get -u -v sourcegraph.com/sqs/goreturns && \
+ go get -u -v github.com/cweill/gotests/... && \
+ go get -u -v golang.org/x/tools/cmd/guru && \
+ go get -u -v github.com/josharian/impl && \
+ go get -u -v github.com/haya14busa/goplay/cmd/goplay && \
+ go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+
+# https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
+# https://linuxconfig.org/how-to-install-php-composer-on-debian-linux
+RUN curl -s -o composer-setup.php https://getcomposer.org/installer \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && rm composer-setup.php
 
 VOLUME /workspace
 
