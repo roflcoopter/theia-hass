@@ -71,12 +71,6 @@ RUN pip install python-language-server[all] \
             yapf \
             pydocstyle
 
-# https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
-# https://linuxconfig.org/how-to-install-php-composer-on-debian-linux
-RUN curl -s -o composer-setup.php https://getcomposer.org/installer \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && rm composer-setup.php
-
 VOLUME /workspace
 
 #USER theia
