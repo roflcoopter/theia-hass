@@ -12,7 +12,7 @@ php-cli \
 php-mbstring \
 unzip \
 python \
-build-essential
+build-essential \
 python-pip && \
 pip install python-language-server[all] 
 
