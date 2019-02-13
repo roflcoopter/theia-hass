@@ -1,20 +1,7 @@
 FROM ubuntu:16.04
 
 #Common deps
-RUN apt-get update && apt-get -y install curl \
-xz-utils \
-wget \
-git \
-sudo \
-php \
-curl \
-php-cli \
-php-mbstring \
-unzip \
-python \
-build-essential \
-python-pip && \
-pip install python-language-server[all] 
+RUN apt-get update && apt-get -y install curl xz-utils wget
 
 #Install node and yarn
 #From: https://github.com/nodejs/docker-node/blob/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
@@ -78,6 +65,17 @@ RUN set -ex \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
+#Developer tools
+
+## Git and sudo (sudo needed for user override)
+RUN apt-get -y install git sudo
+
+#LSPs
+
+##GO
+
+#Required to use go get with git source
+RUN apt-get update && apt-get install -y git
 
 ENV GO_VERSION 1.9.4
 ENV GOPATH=/usr/local/go-packages
@@ -85,29 +83,69 @@ ENV GO_ROOT=/usr/local/go
 ENV PATH $PATH:/usr/local/go/bin
 ENV PATH $PATH:${GOPATH}/bin
 
-RUN curl -sS https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - && \
- go get -u -v github.com/ramya-rao-a/go-outline && \
- go get -u -v github.com/acroca/go-symbols && \
- go get -u -v github.com/nsf/gocode && \
- go get -u -v github.com/rogpeppe/godef && \
- go get -u -v golang.org/x/tools/cmd/godoc && \
- go get -u -v github.com/zmb3/gogetdoc && \
- go get -u -v golang.org/x/lint/golint && \
- go get -u -v github.com/fatih/gomodifytags && \
- go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs && \
- go get -u -v golang.org/x/tools/cmd/gorename && \
- go get -u -v sourcegraph.com/sqs/goreturns && \
- go get -u -v github.com/cweill/gotests/... && \
- go get -u -v golang.org/x/tools/cmd/guru && \
- go get -u -v github.com/josharian/impl && \
- go get -u -v github.com/haya14busa/goplay/cmd/goplay && \
- go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+RUN curl -sS https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+RUN go get -u -v github.com/ramya-rao-a/go-outline
+RUN go get -u -v github.com/acroca/go-symbols
+RUN go get -u -v github.com/nsf/gocode
+RUN go get -u -v github.com/rogpeppe/godef
+RUN go get -u -v golang.org/x/tools/cmd/godoc
+RUN go get -u -v github.com/zmb3/gogetdoc
+RUN go get -u -v golang.org/x/lint/golint
+RUN go get -u -v github.com/fatih/gomodifytags
+RUN go get -u -v github.com/uudashr/gopkgs/cmd/gopkgs
+RUN go get -u -v golang.org/x/tools/cmd/gorename
+RUN go get -u -v sourcegraph.com/sqs/goreturns
+RUN go get -u -v github.com/cweill/gotests/...
+RUN go get -u -v golang.org/x/tools/cmd/guru
+RUN go get -u -v github.com/josharian/impl
+RUN go get -u -v github.com/haya14busa/goplay/cmd/goplay
+RUN go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+
+#Java
+#RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+#RUN apt-get update && apt-get -y install openjdk-8-jdk
+
+
+#C/C++
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+# public LLVM PPA, development version of LLVM
+RUN echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main" > /etc/apt/sources.list.d/llvm.list
+RUN apt-get update && apt-get install -y clang-tools-9
+RUN ln -s /usr/bin/clangd-9 /usr/bin/clangd
+
+#Python
+RUN apt-get update && apt-get install -y python python-pip && \
+pip install python-language-server[all] \
+            flake8 \
+            autopep8
+
+#PHP
+RUN apt-get -y install php curl php-cli php-mbstring unzip
 
 # https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
 # https://linuxconfig.org/how-to-install-php-composer-on-debian-linux
 RUN curl -s -o composer-setup.php https://getcomposer.org/installer \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php
+
+#Ruby
+#RUN apt-get -y install ruby ruby-dev zlib1g-dev
+#RUN gem install solargraph
+
+
+## User account
+#RUN adduser --disabled-password --gecos '' theia && \
+#  adduser theia sudo && \
+#  echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers;
+
+#RUN chmod g+rw /home && \
+#  mkdir -p /home/project && \
+#  chown -R theia:theia /home/theia && \
+#  chown -R theia:theia /home/project;
+
+#Theia
+##Needed for node-gyp, nsfw build
+RUN apt-get update && apt-get install -y python build-essential
 
 VOLUME /workspace
 
