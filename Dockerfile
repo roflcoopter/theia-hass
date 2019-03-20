@@ -115,7 +115,7 @@ RUN ln -s /usr/bin/clangd-9 /usr/bin/clangd
 
 #Python
 RUN apt-get update && apt-get install -y python python-pip && \
-pip install python-language-server[all] \
+pip install 'python-language-server[all]' \
             flake8 \
             autopep8
 
