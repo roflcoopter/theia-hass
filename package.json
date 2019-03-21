@@ -5,7 +5,7 @@
         "@theia/console": "^0.3.19",
         "@theia/core": "^0.3.19",
         "@theia/debug": "^0.3.19",
-        "@theia/docker": "^0.3.19",
+        "@theia/docker": "next",
         "@theia/editor": "^0.3.19",
         "@theia/editor-preview": "^0.3.19",
         "@theia/editorconfig": "^0.3.19",
