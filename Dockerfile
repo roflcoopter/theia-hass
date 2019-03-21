@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y python build-essential
 WORKDIR /home/theia
 ADD package.json ./package.json
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache
-RUN yarn theia build
+RUN NODE_OPTIONS="--max_old_space_size=4096" yarn theia build
 
 FROM node:8-stretch
 WORKDIR /home/theia
