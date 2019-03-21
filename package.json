@@ -39,8 +39,8 @@
         "@theia/textmate-grammars": "^0.3.19",  
         "@theia/userstorage": "^0.3.19",
         "@theia/variable-resolver": "^0.3.19",
-        "@theia/workspace": "^0.3.19"
-        "@theia/yaml": "next",
+        "@theia/workspace": "^0.3.19",
+        "@theia/yaml": "next"
     },
     "devDependencies": {
         "@theia/cli": "next"
