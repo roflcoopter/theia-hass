@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 #Common deps
-RUN apt-get update && apt-get upgrade && apt-get -y install curl \
+RUN apt-get update && apt-get -y upgrade && apt-get -y install curl \
 xz-utils \
 wget \
 git \
