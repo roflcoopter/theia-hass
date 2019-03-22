@@ -18,7 +18,7 @@ python3 \
 build-essential \
 python-pip \
 python3-pip && \
-pip3 install python-language-server[all] 
+pip install python-language-server[all] 
 
 #Install node and yarn
 #From: https://github.com/nodejs/docker-node/blob/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
