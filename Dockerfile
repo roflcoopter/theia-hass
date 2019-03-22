@@ -15,7 +15,7 @@ python \
 python3 \
 build-essential \
 python-pip \
-python-pip3 && \
+python3-pip && \
 pip3 install python-language-server[all] 
 
 #Install node and yarn
