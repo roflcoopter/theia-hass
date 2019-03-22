@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+ENV DEBIAN_FRONTEND=noninteractive 
+
 #Common deps
 RUN apt-get update && apt-get -y install curl \
 xz-utils \
