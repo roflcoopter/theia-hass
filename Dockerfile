@@ -12,8 +12,10 @@ php-cli \
 php-mbstring \
 unzip \
 python \
+python3 \
 build-essential \
-python-pip && \
+python-pip \
+python-pip3 && \
 pip3 install python-language-server[all] 
 
 #Install node and yarn
