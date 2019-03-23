@@ -118,8 +118,8 @@ VOLUME /workspace
 #USER theia
 #ARG version=latest
 WORKDIR /home/theia
-RUN mkdir /home/theia/plugins
-ENV THEIA_DEFAULT_PLUGINS=/home/theia/plugins
+#RUN mkdir /home/theia/plugins
+#ENV THEIA_DEFAULT_PLUGINS=/home/theia/plugins
 ADD package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache
