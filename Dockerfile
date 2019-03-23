@@ -18,7 +18,8 @@ python3 \
 build-essential \
 python-pip \
 python3-pip && \
-pip install python-language-server[all] 
+pip install python-language-server[all] \
+bsdtar
 
 #Install node and yarn
 #From: https://github.com/nodejs/docker-node/blob/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
@@ -118,8 +119,11 @@ VOLUME /workspace
 #USER theia
 #ARG version=latest
 WORKDIR /home/theia
-#RUN mkdir /home/theia/plugins
-#ENV THEIA_DEFAULT_PLUGINS=/home/theia/plugins
+RUN mkdir /home/theia/plugins
+ENV THEIA_DEFAULT_PLUGINS=/home/theia/plugins
+RUN curl -JL https://marketplace.visualstudio.com/_apis/public/gallery/publishers/keesschollaart/vsextensions/vscode-home-assistant/latest/vspackage| bsdtar -xvf - extension
+RUN mv extension /home/theia/plugins/keesschollaart.vscode-home-assistant-latest.vsix
+
 ADD package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache
