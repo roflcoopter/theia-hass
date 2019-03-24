@@ -120,9 +120,9 @@ VOLUME /workspace
 #ARG version=latest
 WORKDIR /home/theia
 RUN mkdir /home/theia/plugins
-ENV THEIA_DEFAULT_PLUGINS=/home/theia/plugins
-RUN curl -JL https://marketplace.visualstudio.com/_apis/public/gallery/publishers/keesschollaart/vsextensions/vscode-home-assistant/latest/vspackage| bsdtar -xvf - extension
-RUN mv extension /home/theia/plugins/keesschollaart.vscode-home-assistant-latest.vsix
+ENV THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
+#RUN curl -JL https://marketplace.visualstudio.com/_apis/public/gallery/publishers/keesschollaart/vsextensions/vscode-home-assistant/latest/vspackage| bsdtar -xvf - extension
+#RUN mv extension /home/theia/plugins/keesschollaart.vscode-home-assistant-latest.vsix
 
 ADD package.json ./package.json
 ARG GITHUB_TOKEN
