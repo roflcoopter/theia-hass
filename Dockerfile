@@ -17,8 +17,8 @@ unzip \
 python3 \
 build-essential \
 #python-pip \
-python3-pip && \
-bsdtar \
+python3-pip \
+bsdtar && \
 pip3 install python-language-server[all]
 
 #Install node and yarn
