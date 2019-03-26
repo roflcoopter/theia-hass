@@ -57,6 +57,7 @@
     },
     "adapterDir": "plugins",
     "adapters": {
-        "vscode-home-assistant": "https://keesschollaart.gallery.vsassets.io/_apis/public/gallery/publisher/keesschollaart/extension/vscode-home-assistant/0.3.4/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        "vscode-home-assistant": "https://keesschollaart.gallery.vsassets.io/_apis/public/gallery/publisher/keesschollaart/extension/vscode-home-assistant/0.3.4/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage",
+        "gitlens": "https://eamodio.gallery.vsassets.io/_apis/public/gallery/publisher/eamodio/extension/gitlens/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
     }
 }
