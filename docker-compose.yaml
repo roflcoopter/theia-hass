@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  theia-dev:
+    build: .
+    image: theia:latest
+    container_name: theia-dev
+    restart: always
+    ports:
+      - 3221:3000
+    environment:
+      HASS_SERVER: ${HASS_SERVER}
+      HASS_TOKEN: ${HASS_TOKEN}
+    volumes:
+      - ${MOUNT_POINT}/:/workspace/
+      - ${MOUNT_POINT}/theia/keymaps.json:/root/.theia/keymaps.json
+      - ${MOUNT_POINT}/theia/settings.json:/workspace/.theia/settings.json
+      - ${MOUNT_POINT}/theia/settings.json:/root/.theia/settings.json
+      - ${MOUNT_POINT}/pylintrc:/etc/pylintrc
+      - ${USER_HOME}/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+      - ${USER_HOME}/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:ro
+      - ${USER_HOME}/.ssh/known_hosts:/root/.ssh/known_hosts:rw
