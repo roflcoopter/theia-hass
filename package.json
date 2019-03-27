@@ -5,7 +5,6 @@
         "@theia/callhierarchy": "next",
         "@theia/core": "next",
         "@theia/cpp": "next",
-        "@theia/docker": "next",
         "@theia/editor": "next",
         "@theia/editorconfig": "next",
         "@theia/editor-preview": "next",
@@ -57,6 +56,7 @@
     "adapterDir": "plugins",
     "adapters": {
         "vscode-home-assistant": "https://keesschollaart.gallery.vsassets.io/_apis/public/gallery/publisher/keesschollaart/extension/vscode-home-assistant/0.3.4/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage",
-        "redhat-yaml": "https://redhat.gallery.vsassets.io/_apis/public/gallery/publisher/redhat/extension/vscode-yaml/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        "vscode-yaml": "https://redhat.gallery.vsassets.io/_apis/public/gallery/publisher/redhat/extension/vscode-yaml/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage",
+        "vscode-docker": "https://PeterJausovec.gallery.vsassets.io/_apis/public/gallery/publisher/PeterJausovec/extension/vscode-docker/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
     }
 }
