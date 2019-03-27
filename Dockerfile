@@ -25,7 +25,6 @@ pip install python-language-server[all]
 #From: https://github.com/nodejs/docker-node/blob/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
 
 # gpg keys listed at https://github.com/nodejs/node#release-keys
-RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
 RUN set -ex \
   && for key in \
   94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -40,6 +39,7 @@ RUN set -ex \
   gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" || \
   gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
   gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+  gpg --keyserver keyserver.ubuntu.com --recv-keys "$key" || \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
   
@@ -73,6 +73,7 @@ RUN set -ex \
   gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" || \
   gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
   gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+  gpg --keyserver keyserver.ubuntu.com --recv-keys "$key" || \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
