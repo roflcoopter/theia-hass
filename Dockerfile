@@ -25,6 +25,7 @@ pip install python-language-server[all]
 #From: https://github.com/nodejs/docker-node/blob/6b8d86d6ad59e0d1e7a94cec2e909cad137a028f/8/Dockerfile
 
 # gpg keys listed at https://github.com/nodejs/node#release-keys
+RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
 RUN set -ex \
   && for key in \
   94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -84,11 +85,11 @@ RUN set -ex \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
 
-ENV GO_VERSION 1.9.4
-ENV GOPATH=/usr/local/go-packages
-ENV GO_ROOT=/usr/local/go
-ENV PATH $PATH:/usr/local/go/bin
-ENV PATH $PATH:${GOPATH}/bin
+ENV GO_VERSION 1.9.4 \
+    GOPATH=/usr/local/go-packages \
+    GO_ROOT=/usr/local/go \
+    PATH $PATH:/usr/local/go/bin \
+    PATH $PATH:${GOPATH}/bin
 
 RUN curl -sS https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - && \
  go get -u -v github.com/ramya-rao-a/go-outline && \
