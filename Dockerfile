@@ -86,11 +86,11 @@ RUN set -ex \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
 
-ENV GO_VERSION=1.9.4 \
-    GOPATH=/usr/local/go-packages \
-    GO_ROOT=/usr/local/go \
-    PATH=$PATH:/usr/local/go/bin \
-    PATH=$PATH:${GOPATH}/bin
+ENV GO_VERSION=1.9.4 
+ENV GOPATH=/usr/local/go-packages 
+ENV GO_ROOT=/usr/local/go 
+ENV PATH=$PATH:/usr/local/go/bin 
+ENV PATH=$PATH:${GOPATH}/bin
 
 RUN curl -sS https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xzf - && \
  go get -u -v github.com/ramya-rao-a/go-outline && \
